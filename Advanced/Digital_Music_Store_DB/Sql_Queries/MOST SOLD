@@ -1,0 +1,10 @@
+SELECT a.Name, t.Name AS Track, il.InvoiceId, il.TrackId, SUM(il.UnitPrice*il.Quantity) AS total_price
+	FROM Track As t
+	JOIN Album AS al
+	ON t.AlbumId = al.AlbumId
+	JOIN Artist AS a
+	ON a.ArtistId = al.ArtistId
+	JOIN InvoiceLine AS il
+	ON il.TrackId = t.TrackId
+	GROUP BY 1
+	ORDER BY total_price DESC

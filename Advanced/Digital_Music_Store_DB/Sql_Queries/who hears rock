@@ -1,0 +1,16 @@
+WITH t1 as (
+	SELECT i.CustomerId, g.Name
+		FROM Invoice as i
+		JOIN InvoiceLine as il
+		ON i.InvoiceId = il.InvoiceId
+		JOIN Track as t
+		ON t.TrackId = il.TrackId
+		JOIN Genre as g
+		ON g.GenreId = t.GenreId)
+SELECT c.Email, c.FirstName, c.LastName
+	FROM Customer AS c
+	JOIN t1
+	ON t1.CustomerId = c.CustomerId
+	WHERE t1.Name = 'Rock'
+	GROUP By 1
+	ORDER BY 1
